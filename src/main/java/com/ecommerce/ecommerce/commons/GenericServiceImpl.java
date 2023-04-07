@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public abstract class GenericServiceImpl<T, ID extends Serializable> implements GenericServiceApi<T, ID>{
+public abstract class GenericServiceImpl<T, ID extends Serializable> implements GenericServiceAPI<T, ID> {
     @Override
     public T save(T Entity) {
         return getDao().save(Entity);
