@@ -11,13 +11,16 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class RegistrationTokenService extends GenericServiceImpl<RegistrationToken, String> {
+public class RegistrationTokenService extends GenericServiceImpl<RegistrationToken, Long> {
 
     private final RegistrationTokenRepository registrationTokenRepository;
 
-    public void saveRegistrationToken(RegistrationToken token){
-        registrationTokenRepository.save(token);
+    @Override
+    public RegistrationToken save(RegistrationToken token) {
+        return super.save(token);
     }
+
+
 
     public RegistrationToken getToken(String token){
         Optional<RegistrationToken> tokenFound = registrationTokenRepository.findByToken(token);
@@ -30,7 +33,9 @@ public class RegistrationTokenService extends GenericServiceImpl<RegistrationTok
     }
 
     @Override
-    public CrudRepository<RegistrationToken, String> getDao() {
+    public CrudRepository<RegistrationToken, Long> getDao() {
         return null;
     }
+
+
 }

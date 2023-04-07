@@ -20,20 +20,23 @@ public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private String id;
-  @Column
+  private Long id;
   private String firstName;
-  @Column
   private String lastName;
-  @Column
   private String email;
-  @Column
   private String password;
-  @Column
   @Enumerated(EnumType.STRING)
   private Role rol;
-  @Column
   private String token;
+  private Boolean enabled = false;
+
+  public User(String firstName, String lastName, String email, String password, Role rol) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+    this.rol = rol;
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

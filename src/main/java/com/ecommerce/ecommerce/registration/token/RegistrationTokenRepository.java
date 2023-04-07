@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
-public interface RegistrationTokenRepository extends JpaRepository<RegistrationToken, String> {
+public interface RegistrationTokenRepository extends JpaRepository<RegistrationToken, Long> {
 
     @Query("SELECT a FROM RegistrationToken a WHERE a.token = :token")
     Optional<RegistrationToken> findByToken(@Param("token") String token);

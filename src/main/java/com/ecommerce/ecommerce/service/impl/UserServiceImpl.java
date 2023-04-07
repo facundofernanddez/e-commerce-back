@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl extends GenericServiceImpl<User, String> implements UserDetailsService {
+public class UserServiceImpl extends GenericServiceImpl<User, Long> implements UserDetailsService {
 
     private final UserDaoAPI userDaoAPI;
     private final UserRepository userRepository;
@@ -27,7 +27,7 @@ public class UserServiceImpl extends GenericServiceImpl<User, String> implements
     private final RegistrationTokenService registrationTokenService;
 
     @Override
-    public CrudRepository<User, String> getDao() {
+    public CrudRepository<User, Long> getDao() {
         return userDaoAPI;
     }
 
@@ -55,9 +55,12 @@ public class UserServiceImpl extends GenericServiceImpl<User, String> implements
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(60), user);
 
-        registrationTokenService.saveRegistrationToken(registrationToken);
+        registrationTokenService.save(registrationToken);
 
         return token;
+    }
 
+    public int enableUser(String email){
+        return userRepository.enableUser(email);
     }
 }

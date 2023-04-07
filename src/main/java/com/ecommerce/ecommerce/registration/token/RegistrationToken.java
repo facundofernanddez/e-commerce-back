@@ -14,7 +14,7 @@ public class RegistrationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
     private String token;
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
