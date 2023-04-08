@@ -8,6 +8,7 @@ import com.ecommerce.ecommerce.registration.token.RegistrationTokenService;
 import com.ecommerce.ecommerce.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -113,6 +114,7 @@ public class RegistrationService {
                 + "</div></div>";
     }
 
+    @Transactional
     public String confirmToken(String token){
         RegistrationToken registrationToken = registrationTokenService.getToken(token);
 

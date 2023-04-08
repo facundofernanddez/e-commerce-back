@@ -53,14 +53,14 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
         RegistrationToken registrationToken = new RegistrationToken(
                 token,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(60), user);
+                LocalDateTime.now().plusMinutes(15), user);
 
         registrationTokenService.save(registrationToken);
 
         return token;
     }
 
-    public int enableUser(String email){
-        return userRepository.enableUser(email);
+    public void enableUser(String email){
+        userRepository.enableUser(email);
     }
 }

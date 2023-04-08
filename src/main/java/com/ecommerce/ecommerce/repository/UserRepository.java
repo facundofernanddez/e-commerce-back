@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT a FROM User a WHERE a.email = :email")
-    public User findByEmail(@Param("email") String email);
+    User findByEmail(@Param("email") String email);
 
     @Modifying
     @Transactional
     @Query("UPDATE User a SET a.enabled = true WHERE a.email = :email")
-    int enableUser(@Param("email") String email);
+    void enableUser(@Param("email") String email);
 }

@@ -17,8 +17,9 @@ public class RegistrationTokenService extends GenericServiceImpl<RegistrationTok
 
     @Override
     public RegistrationToken save(RegistrationToken token) {
-        return super.save(token);
+        return registrationTokenRepository.save(token);
     }
+
 
 
 
