@@ -60,6 +60,19 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
         return token;
     }
 
+    public String loginUser(String email, String password) throws IllegalStateException{
+        boolean isUserExist = userRepository.findByEmail(email) != null;
+        boolean isCorrectPassword = userRepository.findByEmail(email).getPassword().equals(password);
+
+        if(!isUserExist){
+            return String.valueOf(new IllegalStateException("Unregistered user"));
+        }else if(!isCorrectPassword){
+            return String.valueOf(new IllegalStateException("Incorrect password"));
+        }
+
+        return "logged";
+    }
+
     public void enableUser(String email){
         userRepository.enableUser(email);
     }

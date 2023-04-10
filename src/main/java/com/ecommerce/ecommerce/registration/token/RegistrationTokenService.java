@@ -20,9 +20,6 @@ public class RegistrationTokenService extends GenericServiceImpl<RegistrationTok
         return registrationTokenRepository.save(token);
     }
 
-
-
-
     public RegistrationToken getToken(String token){
         Optional<RegistrationToken> tokenFound = registrationTokenRepository.findByToken(token);
 
@@ -37,6 +34,5 @@ public class RegistrationTokenService extends GenericServiceImpl<RegistrationTok
     public CrudRepository<RegistrationToken, Long> getDao() {
         return null;
     }
-
 
 }

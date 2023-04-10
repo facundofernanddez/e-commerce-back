@@ -7,12 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -74,20 +72,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements F
         if (!(request.getMethod().equalsIgnoreCase("OPTIONS"))) {
             try {
                 filterChain.doFilter(request, response);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT");
             response.setHeader("Access-Control-Max-Age", "3600");
-            response.setHeader("Access-Control-Allow-Headers", "Access-Control-Expose-Headers"+"Authorization, content-type," +
-                    "USERID"+"ROLE"+
+            response.setHeader("Access-Control-Allow-Headers", "Access-Control-Expose-Headers" + "Authorization, content-type," +
+                    "USERID" + "ROLE" +
                     "access-control-request-headers,access-control-request-method,accept,origin,authorization,x-requested-with,responseType,observe");
             response.setStatus(HttpServletResponse.SC_OK);
         }
 
     }
-
-
 }
