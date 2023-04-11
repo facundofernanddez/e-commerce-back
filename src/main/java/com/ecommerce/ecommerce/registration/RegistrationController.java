@@ -10,11 +10,6 @@ public class RegistrationController {
 
     private RegistrationService registrationService;
 
-    @GetMapping
-    public String registrationGet(){
-        return "Hola";
-    }
-
     @PostMapping
     public String register(@RequestBody RegistrationRequest request){
         return registrationService.register(request);

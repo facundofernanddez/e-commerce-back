@@ -2,7 +2,6 @@ package com.ecommerce.ecommerce.registration.token;
 
 import com.ecommerce.ecommerce.commons.GenericServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
