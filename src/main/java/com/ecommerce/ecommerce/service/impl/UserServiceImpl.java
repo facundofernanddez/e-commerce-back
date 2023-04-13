@@ -4,6 +4,7 @@ import com.ecommerce.ecommerce.model.user.User;
 import com.ecommerce.ecommerce.registration.token.RegistrationToken;
 import com.ecommerce.ecommerce.registration.token.RegistrationTokenService;
 import com.ecommerce.ecommerce.repository.UserRepository;
+import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
 
@@ -66,9 +67,11 @@ public class UserServiceImpl  implements UserDetailsService {
         }else if(!isCorrectPassword){
             return "incorrect password";
         }
-                
+        
+        Gson gson = new Gson();
+        
 
-        return "Logged";
+        return gson.toJson(user);
     }
 
     public void enableUser(String email){
