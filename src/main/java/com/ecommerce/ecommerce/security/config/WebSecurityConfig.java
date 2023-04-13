@@ -60,28 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements F
                 .permitAll();
     }
 
-
-    // public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
-    //     httpSecurity
-    //         .csrf().disable()
-    //         .cors().and()
-    //         .authorizeRequests()
-    //         .antMatchers("/registration/**")
-    //         .permitAll()
-    //         .anyRequest()
-    //         .authenticated()
-    //         .and().formLogin()
-    //         .loginPage("/login")
-    //         // .loginProcessingUrl("/login/check")
-    //         .usernameParameter("email")
-    //         .passwordParameter("password")
-    //         .defaultSuccessUrl("/home")
-    //         .permitAll();
-
-
-    //     return httpSecurity.build();
-    // }
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;

@@ -2,40 +2,40 @@ package com.ecommerce.ecommerce.login;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ecommerce.ecommerce.model.user.User;
-import com.ecommerce.ecommerce.repository.UserRepository;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-@CrossOrigin(
-    maxAge = 3600, 
-    methods = RequestMethod.POST, 
-    allowedHeaders = "*")
-
+@CrossOrigin
 public class LoginController {
 
-    private final UserRepository repository;
     private final LoginService loginService;
 
-    
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Response login(@RequestBody LoginRequest request){
-        User user = repository.findByEmail(request.getEmail());
 
-        return Response
-            .status(Status.OK)
-            .entity(user)
-            .type("application/json")
-            .build();
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<Object> login(@RequestBody LoginRequest request) throws Exception{
+        User user = loginService.login(request);
+        
+        try {
+            Map<String, User> respondePayload = new HashMap<>();
+            respondePayload.put("user", user);
+
+            return new ResponseEntity<>(respondePayload, HttpStatus.OK); 
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error with login", HttpStatus.UNAUTHORIZED);
+        }
     }
 }

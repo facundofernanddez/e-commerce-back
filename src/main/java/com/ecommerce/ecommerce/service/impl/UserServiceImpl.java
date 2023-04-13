@@ -57,21 +57,18 @@ public class UserServiceImpl  implements UserDetailsService {
         return token;
     }
 
-    public String loginUser(String email, String password) throws IllegalStateException{
+    public User loginUser(String email, String password){
         User user = userRepository.findByEmail(email);
         boolean isUserExist = user.getEmail() != null;
         boolean isCorrectPassword = bCryptPasswordEncoder.matches(password, user.getPassword());
 
-        if(!isUserExist){
-            return "user not found";
-        }else if(!isCorrectPassword){
-            return "incorrect password";
-        }
-        
-        Gson gson = new Gson();
-        
+        // if(!isUserExist){
+        //     return new Exception("user not found");
+        // }else if(!isCorrectPassword){
+        //     return new Exception("incorrect password");
+        // }        
 
-        return gson.toJson(user);
+        return user;
     }
 
     public void enableUser(String email){

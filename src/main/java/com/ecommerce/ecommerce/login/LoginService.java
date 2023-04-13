@@ -1,5 +1,6 @@
 package com.ecommerce.ecommerce.login;
 
+import com.ecommerce.ecommerce.model.user.User;
 import com.ecommerce.ecommerce.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ public class LoginService {
 
     private final UserServiceImpl userService;
 
-    public String login(LoginRequest request){
+    public User login(LoginRequest request){
         return userService.loginUser(request.getEmail(), request.getPassword());
     }
 }

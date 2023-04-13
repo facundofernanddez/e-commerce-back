@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/registration")
+@CrossOrigin
 public class RegistrationController {
 
     private RegistrationService registrationService;
