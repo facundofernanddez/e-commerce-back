@@ -1,10 +1,10 @@
 package com.ecommerce.ecommerce.service.impl;
 
+import com.ecommerce.ecommerce.exception.MyException;
 import com.ecommerce.ecommerce.model.user.User;
 import com.ecommerce.ecommerce.registration.token.RegistrationToken;
 import com.ecommerce.ecommerce.registration.token.RegistrationTokenService;
 import com.ecommerce.ecommerce.repository.UserRepository;
-import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
 
@@ -57,16 +57,16 @@ public class UserServiceImpl  implements UserDetailsService {
         return token;
     }
 
-    public User loginUser(String email, String password){
+    public User loginUser(String email, String password) throws MyException{
         User user = userRepository.findByEmail(email);
         boolean isUserExist = user.getEmail() != null;
         boolean isCorrectPassword = bCryptPasswordEncoder.matches(password, user.getPassword());
 
-        // if(!isUserExist){
-        //     return new Exception("user not found");
-        // }else if(!isCorrectPassword){
-        //     return new Exception("incorrect password");
-        // }        
+        if(!isUserExist){
+            throw new MyException("user not found");
+        }else if(!isCorrectPassword){
+            throw new MyException("incorrect password");
+        }
 
         return user;
     }

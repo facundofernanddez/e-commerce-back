@@ -7,8 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ecommerce.ecommerce.exception.MyException;
 import com.ecommerce.ecommerce.model.user.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,14 +26,14 @@ public class LoginController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Object> login(@RequestBody LoginRequest request) throws Exception{
+    public ResponseEntity<Object> login(@RequestBody LoginRequest request) throws MyException{
         User user = loginService.login(request);
         
         try {
-            Map<String, User> respondePayload = new HashMap<>();
-            respondePayload.put("user", user);
+            Map<String, User> responsePayload = new HashMap<>();
+            responsePayload.put("user", user);
 
-            return new ResponseEntity<>(respondePayload, HttpStatus.OK); 
+            return new ResponseEntity<>(responsePayload, HttpStatus.OK); 
         } catch (Exception e) {
             return new ResponseEntity<>("Error with login", HttpStatus.UNAUTHORIZED);
         }
