@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,14 +22,14 @@ public class RegistrationService {
     private final EmailSender emailSender;
     private final RegistrationTokenService registrationTokenService;
 
-    public String register(RegistrationRequest request){
+    public User register(RegistrationRequest request){
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if(!isValidEmail){
             throw new IllegalStateException("email not valid");
         }
 
-        String token = userService.signUpUser(
+        User user = userService.signUpUser(
                 new User(
                         request.getFirstName(),
                         request.getLastName(),
@@ -38,11 +39,19 @@ public class RegistrationService {
                 )
         );
 
+        String token = UUID.randomUUID().toString();
+        RegistrationToken registrationToken = new RegistrationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15), user);
+
+        registrationTokenService.save(registrationToken);
+
         String link = "http://localhost:8080/registration/confirm?token=" + token;
 
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
 
-        return token;
+        return user;
     }
 
     private String buildEmail(String name, String link){

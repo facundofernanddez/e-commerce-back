@@ -32,7 +32,7 @@ public class UserServiceImpl  implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public String signUpUser(User user){
+    public User signUpUser(User user){
         boolean isUserExist = userRepository.findByEmail(user.getEmail()) != null;
 
         if (isUserExist){
@@ -46,15 +46,7 @@ public class UserServiceImpl  implements UserDetailsService {
 
         userRepository.save(user);
 
-        String token = UUID.randomUUID().toString();
-        RegistrationToken registrationToken = new RegistrationToken(
-                token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15), user);
-
-        registrationTokenService.save(registrationToken);
-
-        return token;
+        return user;
     }
 
     public User loginUser(String email, String password) throws MyException{
