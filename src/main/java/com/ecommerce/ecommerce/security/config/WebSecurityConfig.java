@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -24,22 +23,23 @@ import java.io.IOException;
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements Filter{
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private UserServiceImpl userService;
+   private BCryptPasswordEncoder bCryptPasswordEncoder;
+   private UserServiceImpl userService;
 
-    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-        authenticationManagerBuilder.authenticationProvider(daoAuthenticationProvider());
-    }
+   public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
+       authenticationManagerBuilder.authenticationProvider(daoAuthenticationProvider());
+   }
 
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+   @Bean
+   public DaoAuthenticationProvider daoAuthenticationProvider(){
+       DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
-        provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(userService);
+       provider.setPasswordEncoder(bCryptPasswordEncoder);
+       provider.setUserDetailsService(userService);
 
-        return provider;
-    }
+
+       return provider;
+   }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
