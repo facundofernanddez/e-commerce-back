@@ -35,7 +35,7 @@ public class LoginController {
 
             return new ResponseEntity<>(responsePayload, HttpStatus.OK); 
         } catch (Exception e) {
-            return new ResponseEntity<>("Error with login", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Login error", HttpStatus.UNAUTHORIZED);
         }
     }
 }
