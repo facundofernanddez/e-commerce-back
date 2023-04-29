@@ -24,7 +24,6 @@ public class UserServiceImpl  implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final RegistrationTokenService registrationTokenService;
 
     
     @Override
